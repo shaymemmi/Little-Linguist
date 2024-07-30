@@ -1,0 +1,14 @@
+<h2 style="text-align: center;">Lets Play:</h2>
+<div style="display: flex;justify-content: right;">
+    <mat-card style="width: fit-content;padding: 1rem;">My Coins: X</mat-card>
+
+</div>
+    <div class="gamesRow">
+        <div *ngFor="let game of games">
+            <mat-card class="game" (click)="openGame(game)">
+                <mat-card-title>{{ game.name }}</mat-card-title>
+                <mat-card-content>{{ game.description }}</mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
