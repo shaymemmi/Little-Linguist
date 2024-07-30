@@ -1,0 +1,25 @@
+.info-header {
+    text-align: center;
+}
+/* .infoRow {
+    display: flex;
+    justify-content: center;
+} */
+.infoRow {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+mat-card {
+    margin: 1rem;
+}
+mat-card-title {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+mat-card-content {
+    text-align: center;
+}
+.info-box {
+    padding: 1rem;
+}
