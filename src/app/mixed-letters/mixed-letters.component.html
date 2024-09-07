@@ -1,1 +1,24 @@
 <h1 class="game-header">Mixed Letters - {{ category?.name }} </h1>
+
+<div *ngIf="!isGameHasFinished" class="game-container">
+    <app-exit-button></app-exit-button>
+    <h4>
+      <app-points-display [points]="points"></app-points-display>
+    </h4>
+    <h4>
+      <app-progress-bar [currentWordIndex]="currentWordIndex" [totalWords]="words.length"></app-progress-bar>
+    </h4>
+    <div class="word-container">
+      <h1 style="text-align: center;">{{ words[currentWordIndex].target }}</h1>
+      <p style="text-align: center;">{{ jumbledWord }}</p>
+      <div style="display: flex;justify-content: center;">
+        <mat-form-field style="display: block;width: 40%;">
+          <input matInput [(ngModel)]="userInput" placeholder="Enter Your Guess here" />
+        </mat-form-field>
+      </div>
+      <button style="margin-right: 1rem;" mat-raised-button (click)="checkWord()">Submit</button>
+      <app-reset-button (resetEvent)="userInput = ''"></app-reset-button>
+    </div>
+  </div>
+
+  <app-summary-screen *ngIf="isGameHasFinished" [data]="this.usrGuess"></app-summary-screen>

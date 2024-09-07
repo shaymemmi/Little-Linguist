@@ -2,3 +2,7 @@
     text-align: center;
     margin: 1rem;
 }
+.word-container {
+    justify-content: center;
+    text-align: center;
+}

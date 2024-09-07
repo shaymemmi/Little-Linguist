@@ -1,0 +1,15 @@
+.summary-container {
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .success {
+    color: green;
+  }
+  
+  .failure {
+    color: red;
+  }

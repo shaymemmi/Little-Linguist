@@ -6,6 +6,7 @@ import { WordSorterComponent } from './word-sorter/word-sorter.component';
 import { MixedLettersComponent } from './mixed-letters/mixed-letters.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InfoComponent } from './info/info.component';
+import { SummaryScreenComponent } from './summary-screen/summary-screen.component';
 
 export const routes: Routes = [
     {path: "", component: DashboardComponent}, //{path: "", component: CategoriesListComponent}

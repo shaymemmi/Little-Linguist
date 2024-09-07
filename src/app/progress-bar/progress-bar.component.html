@@ -1,0 +1,4 @@
+<div>
+    <span>{{ currentWordIndex + 1 }} / {{ totalWords }}</span>
+    <mat-progress-bar mode="determinate" [value]="(currentWordIndex + 1) / totalWords * 100"></mat-progress-bar>
+  </div>
