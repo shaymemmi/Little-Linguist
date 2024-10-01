@@ -26,6 +26,8 @@ export class CatSelectComponent implements OnInit {
   }
 ngOnInit() {
 this.gameSelected = this.data
-this.categories = this.category.list(); // loads all catego
+this.category.list().then((result: Category[]) => {
+  this.categories = result;
+});
 }
 }

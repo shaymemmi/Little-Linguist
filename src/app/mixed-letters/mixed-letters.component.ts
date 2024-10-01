@@ -67,8 +67,13 @@ public isGameHasFinished: boolean = false;
   }
   
   getCategory() {
-  let conv2Number = parseInt(this.id);
-    this.category = this.catService.get(conv2Number);
+    this.catService.get(this.id).then(
+      (catgoryFromService) => {
+      if (catgoryFromService) {
+      this.category = catgoryFromService;
+      }
+      }
+      );
     this.getWords();
   }
   getWords() {
