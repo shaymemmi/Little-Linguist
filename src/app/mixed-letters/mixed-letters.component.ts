@@ -11,6 +11,8 @@ import { SummaryScreenComponent } from "../summary-screen/summary-screen.compone
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import { GameService } from '../services/user-activity.service';
+import { GameResult } from '../../shared/model/game-result';
 @Component({
   selector: 'app-mixed-letters',
   standalone: true,
@@ -21,7 +23,7 @@ import {MatInputModule} from '@angular/material/input';
 
 export class MixedLettersComponent implements OnInit {
 @Input() id!: any;
-category!: Category | undefined;
+category!: Category;
 currentWordIndex = 0;
 points = 0;
 words: TranslatedWord[] = [];
@@ -29,20 +31,22 @@ usrGuess: object[] = [];
   jumbledWord = this.jumbleWord('');
   userInput = '';
 public isGameHasFinished: boolean = false;
- constructor(private catService: CategoriesService) { }
+ constructor(private catService: CategoriesService,private gameResultServ: GameService) { }
 
   ngOnInit() {
-    this.getCategory();
-    console.log(this.currentWordIndex,this.words.length)
-    this.jumbledWord = this.jumbleWord(this.words[this.currentWordIndex].origin);
-    this.isGameHasFinished= false
+    this.getCategory().then(
+    ()=> {
+      this.jumbledWord = this.jumbleWord(this.words[this.currentWordIndex].origin);
+      this.isGameHasFinished= false
+    });
   }
 
   jumbleWord(word: string): string {
     return word.split('').sort(() => 0.5 - Math.random()).join('');
   }
 
-    checkWord() {
+   async checkWord() {
+    console.log(this.currentWordIndex,this.words.length -1)
     if (this.currentWordIndex === this.words.length - 1) {
       this.isGameHasFinished = true;
       //FINISH!
@@ -66,8 +70,8 @@ public isGameHasFinished: boolean = false;
     } 
   }
   
-  getCategory() {
-    this.catService.get(this.id).then(
+ async getCategory() {
+   await this.catService.get(this.id).then(
       (catgoryFromService) => {
       if (catgoryFromService) {
       this.category = catgoryFromService;
@@ -78,5 +82,10 @@ public isGameHasFinished: boolean = false;
   }
   getWords() {
     return this.words = this.category!.words;
+  }
+async finishGame() {
+      // add to game result
+      const game = new GameResult('Mixed-Letters',this.category.id,new Date(),this.points)
+      await this.gameResultServ.addGameResult(game)
   }
 }
