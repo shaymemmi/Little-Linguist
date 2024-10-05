@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { categories } from '../../shared/data/categories';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { Category } from '../../shared/model/category';
@@ -22,20 +21,27 @@ import { DeleteCategoryDialogComponent } from '../delete-category-dialog/delete-
 export class CategoriesListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'numOfWords', 'lastUpdateDate', 'actions'];
   dataSource : Category[] = [];
+  isFullyLoaded: boolean = false;
+  Categories: Category[] = [];
 
   constructor(private categoriesService : CategoriesService, private dialogService : MatDialog) {}
 
   ngOnInit(): void {
-    this.dataSource = this.categoriesService.list();
+    this.categoriesService.list().then((result: Category[]) => {
+      this.Categories = result;
+      this.isFullyLoaded = true;
+    });
   }
 
-  deleteCategory(id : number, name: string) {
+  deleteCategory(id : string, name: string) {
     let dialogRef = this.dialogService.open(DeleteCategoryDialogComponent, {data: name});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.categoriesService.delete(id);
-        this.dataSource = this.categoriesService.list();
+        this.categoriesService.list().then((result: Category[]) => {
+          this.Categories = result;
+        });
       }});
   }
 }

@@ -28,7 +28,7 @@ import { TranslatedWord } from '../../shared/model/translated-word';
   styleUrl: './category-form.component.css',
 })
 export class CategoryFormComponent implements OnInit { 
-  currentCategory = new Category(0,"", Language.English, Language.Hebrew);
+  currentCategory = new Category("","", Language.English, Language.Hebrew);
   displayedColumns: string[] = ["Origin", "Target", "Actions"];
 
   @Input()
@@ -41,12 +41,20 @@ export class CategoryFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.id) {
-      let categoryData = this.categoriesService.get(parseInt(this.id)); 
-
-      if (categoryData) {
-        this.currentCategory = categoryData;
+      this.categoriesService.get(this.id).then(
+      (catgoryFromService) => {
+      if (catgoryFromService) {
+      this.currentCategory = catgoryFromService;
       }
-    }
+      }
+      );
+      }
+    // if (this.id) {
+    //   let categoryData = this.categoriesService.get(this.id); 
+    //   if (categoryData) {
+    //     this.currentCategory = categoryData;
+    //   }
+    // }
   }
 
   addWord() {
@@ -64,11 +72,14 @@ export class CategoryFormComponent implements OnInit {
 
   saveCategory() {
     if (this.id) {
-      this.categoriesService.update(this.currentCategory);
-    } else {
-      this.categoriesService.add(this.currentCategory);
-    }
-
-    this.router.navigate(['']);
+      this.categoriesService.update(this.currentCategory).then(
+      () => this.router.navigate([''])
+      );
+      } else {
+      this.categoriesService.add(this.currentCategory).then(
+      () => this.router.navigate([''])
+      );
+      }
+     
   }
 }

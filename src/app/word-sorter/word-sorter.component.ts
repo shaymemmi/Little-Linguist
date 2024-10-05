@@ -11,14 +11,21 @@ import { CategoriesService } from '../services/categories.service';
 })
 export class WordSorterComponent implements OnInit {
   category!: Category | undefined;
-  @Input() id!: any;
+  @Input() id!: string;
   constructor(private catService: CategoriesService) {}
-  ngOnInit() {
-    this.getCategory();
+ async ngOnInit() {
+  await this.getCategory();
   }
 
-  getCategory() {
-  let conv2Number = parseInt(this.id);
-    this.category = this.catService.get(conv2Number);
+ async getCategory() {
+  //let conv2Number = parseInt(this.id);
+   // this.category = this.catService.get(this.id);
+   await this.catService.get(this.id).then(
+      (catgoryFromService) => {
+      if (catgoryFromService) {
+      this.category = catgoryFromService;
+      }
+      }
+      );
   }
 }

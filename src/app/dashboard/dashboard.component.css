@@ -1,3 +1,20 @@
 .dash-header {
     text-align: center;
 }
+.dashRow {
+    display: flex;
+    justify-content: center;
+}
+mat-card {
+    margin: 1rem;
+}
+mat-card-title {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+mat-card-content {
+    text-align: center;
+}
+.game {
+    cursor: pointer;
+}

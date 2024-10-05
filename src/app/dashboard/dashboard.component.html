@@ -1,1 +1,55 @@
 <h1 class="dash-header">You're learning: </h1>
+<div class="dashRow">
+    <div>
+        <mat-card>
+            <mat-card-title>{{ gameResults.length }}</mat-card-title>
+            <mat-card-content>Total Game Played</mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card>
+            <mat-card-title>{{ getTotalPoints() }}</mat-card-title>
+            <mat-card-content>Total Points</mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card>
+            <mat-card-title>{{ calculateCategoriesLearnt() }}</mat-card-title>
+            <mat-card-content>Categories Learnt</mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card>
+            <mat-card-title>{{ getHighestScoreGame() }}</mat-card-title>
+            <mat-card-content>Highest Score Game</mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card>
+            <mat-card-title>{{ calculatePerfectGames() }}%</mat-card-title>
+            <mat-card-content>Perfect games</mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card>
+            <mat-card-title>{{ consecutiveGameDays }}</mat-card-title>
+            <mat-card-content>Days strike</mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card>
+            <mat-card-title>{{ calculateCategoriesStudiedPercentage(100) }}%</mat-card-title>
+            <mat-card-content>Categories Studied</mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card>
+            <mat-card-content>
+                <h3>{{ gamesPlayedLastMonth }}</h3>
+                <p>Games Played Last Month</p>
+                <p *ngIf="gamesPlayedLastMonth < 20">Play {{ 20 - gamesPlayedLastMonth }} more games to meet the monthly challenge!</p>
+                <p *ngIf="gamesPlayedLastMonth >= 20">Congratulations! You've met the monthly challenge!</p>        
+            </mat-card-content>
+        </mat-card>
+      </div>
+</div>
